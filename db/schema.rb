@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190805175146) do
+ActiveRecord::Schema.define(version: 20190805180501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20190805175146) do
     t.datetime "updated_at", null: false
     t.bigint "search_id"
     t.index ["search_id"], name: "index_jobs_on_search_id"
+  end
+
+  create_table "scrapers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "website_id"
+    t.index ["website_id"], name: "index_scrapers_on_website_id"
   end
 
   create_table "searches", force: :cascade do |t|
@@ -49,6 +56,14 @@ ActiveRecord::Schema.define(version: 20190805175146) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "websites", force: :cascade do |t|
+    t.string "name"
+    t.string "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "jobs", "searches"
+  add_foreign_key "scrapers", "websites"
   add_foreign_key "searches", "users"
 end
