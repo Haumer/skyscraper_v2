@@ -28,3 +28,7 @@ group :development, :test do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'dotenv-rails'
 end
+
+gem "sidekiq", "~> 5.2"
+
+gem "sidekiq-failures", "~> 1.0"
