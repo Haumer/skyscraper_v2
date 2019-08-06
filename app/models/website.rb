@@ -1,4 +1,4 @@
 class Website < ApplicationRecord
-  validates :link, presence: true
+  validates :url, presence: true
   validates :name, presence: true
 end

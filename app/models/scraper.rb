@@ -1,7 +1,9 @@
 class Scraper < ApplicationRecord
+  require 'open-uri'
 
-  def self.crawl(*args)
-    page = Nokogiri::HTML(open(url))
+  def crawl(**args)
+    @@url = "https://www.cv-library.co.uk/search-jobs?distance=15&fp=1&geo=london&offset=0&posted=28&q=ruby&salarymax=&salarymin=&salarytype=annum&search=1&tempperm=Any"
+    page = Nokogiri::HTML(open(@@url))
     page.search("#{args[:card_class]}").each do |result_card|
       if result_card.search("#{args[:title_class]}").text.strip.downcase.include?("#{args[:keyword]}")
         title = result_card.search("#{args[:title_class]}").text.strip
@@ -9,7 +11,7 @@ class Scraper < ApplicationRecord
         location = result_card.search("#{args[:location_class]}").text.strip
         company = result_card.search("#{args[:company_class]}").text.strip
         if result_card.search("#{args[:salary_class]}").text.strip.nil? || result_card.search("#{args[:salary_class]}").text.strip.empty?
-          salary = "-"
+          salary = nil
         else
           salary = result_card.search("#{args[:salary_class]}").text.strip
         end
