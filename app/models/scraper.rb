@@ -1,6 +1,8 @@
 class Scraper < ApplicationRecord
   require 'open-uri'
 
+  belongs_to :website
+
   def crawl(**args)
     @@url = "https://www.cv-library.co.uk/search-jobs?distance=15&fp=1&geo=london&offset=0&posted=28&q=ruby&salarymax=&salarymin=&salarytype=annum&search=1&tempperm=Any"
     page = Nokogiri::HTML(open(@@url))
