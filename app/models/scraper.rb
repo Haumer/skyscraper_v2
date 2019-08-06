@@ -29,4 +29,8 @@ class Scraper < ApplicationRecord
       end
     end
   end
+
+  def build_url
+
+  end
 end

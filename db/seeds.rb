@@ -14,6 +14,6 @@ end
 #   location_class: "#js-loc-details",
 #   company_class: ".agency-link-mobile",
 #   salary_class: "#js-salary-details",
-#   website: Website.firs,
+#   website: Website.first,
 #   nr_pages: 3
 # )

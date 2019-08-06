@@ -6,5 +6,7 @@ class AddFieldsToScraper < ActiveRecord::Migration[5.1]
     add_column :scrapers, :location_class, :string
     add_column :scrapers, :link_class, :string
     add_column :scrapers, :company_class, :string
+    add_column :scrapers, :scrape_url, :string
+    add_column :scrapers, :page_counter, :string
   end
 end
