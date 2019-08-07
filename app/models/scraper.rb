@@ -1,6 +1,14 @@
 class Scraper < ApplicationRecord
   require 'open-uri'
 
+  validates :scrape_url, presence: true
+  validates :nr_pages, presence: true, numericality: true
+  validates :card_class, presence: true
+  validates :title_class, presence: true
+  validates :link_class, presence: true
+  validates :location_class, presence: true
+  validates :company_class, presence: true
+  validates :salary_class, presence: true
   belongs_to :website
 
   def crawl(keyword, location)
