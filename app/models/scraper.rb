@@ -1,7 +1,7 @@
 class Scraper < ApplicationRecord
   require 'open-uri'
 
-  validates :scrape_url, presence: true
+  validates :scrape_url, presence: true, uniqueness: true
   validates :nr_pages, presence: true, numericality: true
   validates :card_class, presence: true
   validates :title_class, presence: true
@@ -11,17 +11,17 @@ class Scraper < ApplicationRecord
   validates :salary_class, presence: true
   belongs_to :website
 
-  def crawl(keyword, location)
-    build_url(keyword, location).each do |url|
+  def crawl(search)
+    build_url(search.keyword, search.location).each_with_index do |url, i|
       page = Nokogiri::HTML(open(url))
       page.search(self.card_class).each do |result_card|
-        if result_card.search(self.title_class).text.strip.downcase.include?(keyword)
-          title = result_card.search(self.title_class).text.strip
+        if result_card.search(self.title_class).text.strip.downcase.include?(search.keyword)
+          p title = result_card.search(self.title_class).text.strip
           link = self.website.name + result_card.search(self.link_class).first['href']
           location = result_card.search(self.location_class).text.strip
           company = result_card.search(self.company_class).text.strip
           if result_card.search(self.salary_class).text.strip.nil? || result_card.search(self.salary_class).text.strip.empty?
-            salary = nil
+            salary = "unspecified"
           else
             salary = result_card.search(self.salary_class).text.strip
           end
@@ -33,6 +33,7 @@ class Scraper < ApplicationRecord
             salary: salary,
             company: company,
             link: link,
+            search: search
           )
         end
       end
