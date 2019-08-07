@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20190805182756) do
     t.string "link_class"
     t.string "company_class"
     t.string "scrape_url"
-    t.string "page_counter"
+    t.integer "counter_interval"
     t.integer "nr_pages"
     t.index ["website_id"], name: "index_scrapers_on_website_id"
   end

@@ -30,7 +30,7 @@ class Scraper < ApplicationRecord
     end
   end
 
-  def build_url
+  def build_url()
 
   end
 end

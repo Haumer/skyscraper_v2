@@ -15,5 +15,6 @@ end
 #   company_class: ".agency-link-mobile",
 #   salary_class: "#js-salary-details",
 #   website: Website.first,
-#   nr_pages: 3
+#   nr_pages: 3,
+#   scrape_url: "https://www.cv-library.co.uk/search-jobs?distance=15&fp=1&geo=LOCATION&offset=COUNTER&posted=28&q=KEYWORD&salarymax=&salarymin=&salarytype=annum&search=1&tempperm=Any"
 # )
