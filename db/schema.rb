@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190807083956) do
+ActiveRecord::Schema.define(version: 20190807122139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20190807083956) do
     t.string "scrape_url"
     t.integer "counter_interval"
     t.integer "nr_pages"
+    t.string "description_class"
     t.index ["website_id"], name: "index_scrapers_on_website_id"
   end
 

@@ -15,8 +15,8 @@ class Scraper < ApplicationRecord
     build_url(search.keyword, search.location).each_with_index do |url, i|
       page = Nokogiri::HTML(open(url))
       page.search(self.card_class).each do |result_card|
-        if result_card.search(self.title_class).text.strip.downcase.include?(search.keyword)
-          p title = result_card.search(self.title_class).text.strip
+        if result_card.search(self.title_class).text.strip.downcase.include?(search.keyword) || result_card.search(self.description_class).text.strip.downcase.include?(search.keyword)
+          title = result_card.search(self.title_class).text.strip
           link = self.website.name + result_card.search(self.link_class).first['href']
           location = result_card.search(self.location_class).text.strip
           company = result_card.search(self.company_class).text.strip
