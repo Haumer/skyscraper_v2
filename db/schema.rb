@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190807122139) do
+ActiveRecord::Schema.define(version: 20190807175728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "jobs", force: :cascade do |t|
     t.string "title"
-    t.integer "salary"
     t.string "company"
     t.string "location"
     t.string "link"
@@ -25,6 +24,7 @@ ActiveRecord::Schema.define(version: 20190807122139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "search_id"
+    t.string "salary"
     t.index ["search_id"], name: "index_jobs_on_search_id"
   end
 

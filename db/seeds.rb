@@ -8,6 +8,7 @@ websites.each do |website|
   Website.create!(base_url: website, name: name)
 end
 
+# CV-LIBRARY
 Scraper.create!(
   card_class: ".job-search-description",
   title_class: "#js-jobtitle-details",
@@ -22,6 +23,7 @@ Scraper.create!(
   scrape_url: "https://www.cv-library.co.uk/search-jobs?distance=15&fp=1&geo=LOCATION&offset=COUNTER&posted=28&q=KEYWORD&salarymax=&salarymin=&salarytype=annum&search=1&tempperm=Any"
 )
 
+# JOBSTODAY
 Scraper.create!(
   card_class: ".lister__item--networkjob",
   title_class: "h3",
@@ -37,6 +39,7 @@ Scraper.create!(
 )
 # location has unique id. look into this later
 
+# INDEED
 Scraper.create!(
   card_class: ".result",
   title_class: ".jobtitle",
@@ -49,4 +52,19 @@ Scraper.create!(
   counter_interval: 1,
   nr_pages: 3,
   scrape_url: "https://www.indeed.co.uk/jobs?q=KEYWORD&l=LOCATION&start=COUTNER"
+)
+
+# REED
+Scraper.create!(
+  card_class: ".job-result",
+  title_class: "h3.title",
+  link_class: "a",
+  location_class: ".location",
+  company_class: ".gtmJobListingPostedBy",
+  salary_class: ".salary",
+  description_class: ".description p",
+  website: Website.where(base_url: "www.reed.co.uk").first,
+  counter_interval: 1,
+  nr_pages: 3,
+  scrape_url: "https://www.reed.co.uk/jobs/jobs-in-LOCATION?keywords=KEYWORD&cached=True&pageno=COUNTER"
 )

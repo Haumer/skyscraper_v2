@@ -13,29 +13,34 @@ class Scraper < ApplicationRecord
 
   def crawl(search)
     build_url(search.keyword, search.location).each_with_index do |url, i|
-      page = Nokogiri::HTML(open(url))
-      page.search(self.card_class).each do |result_card|
-        if result_card.search(self.title_class).text.strip.downcase.include?(search.keyword) || result_card.search(self.description_class).text.strip.downcase.include?(search.keyword)
-          title = result_card.search(self.title_class).text.strip
-          link = self.website.name + result_card.search(self.link_class).first['href']
-          location = result_card.search(self.location_class).text.strip
-          company = result_card.search(self.company_class).text.strip
-          if result_card.search(self.salary_class).text.strip.nil? || result_card.search(self.salary_class).text.strip.empty?
-            salary = "unspecified"
-          else
-            salary = result_card.search(self.salary_class).text.strip
+      begin
+        page = Nokogiri::HTML(open(url))
+        page.search(self.card_class).each do |result_card|
+          if result_card.search(self.title_class).text.strip.downcase.include?(search.keyword) || result_card.search(self.description_class).text.strip.downcase.include?(search.keyword)
+            title = result_card.search(self.title_class).text.strip
+            link = self.website.name + result_card.search(self.link_class).first['href']
+            location = result_card.search(self.location_class).text.strip
+            company = result_card.search(self.company_class).text.strip
+            if result_card.search(self.salary_class).text.strip.nil? || result_card.search(self.salary_class).text.strip.empty?
+              salary = "unspecified"
+            else
+              p salary = result_card.search(self.salary_class).text.strip
+            end
+            website = self.website.name
+            Job.create!(
+              title: title,
+              location: location,
+              job_website: website,
+              salary: salary,
+              company: company,
+              link: link,
+              search: search
+            )
           end
-          website = self.website.name
-          Job.create!(
-            title: title,
-            location: location,
-            job_website: website,
-            salary: salary,
-            company: company,
-            link: link,
-            search: search
-          )
         end
+      rescue StandardError => e
+        puts e.message
+        puts url
       end
     end
   end
