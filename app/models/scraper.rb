@@ -41,6 +41,7 @@ class Scraper < ApplicationRecord
       rescue StandardError => e
         puts e.message
         puts url
+        return
       end
     end
   end

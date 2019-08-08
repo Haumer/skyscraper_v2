@@ -19,6 +19,7 @@ Scraper.create!(
   description_class: ".job-search-details-description.search-result-desc.show-desc",
   website: Website.where(base_url: "www.cv-library.co.uk").first,
   counter_interval: 25,
+  counter_start: 0,
   nr_pages: 3,
   scrape_url: "https://www.cv-library.co.uk/search-jobs?distance=15&fp=1&geo=LOCATION&offset=COUNTER&posted=28&q=KEYWORD&salarymax=&salarymin=&salarytype=annum&search=1&tempperm=Any"
 )
@@ -34,6 +35,7 @@ Scraper.create!(
   description_class: ".lister__description .js-clamp-2",
   website: Website.where(base_url: "www.jobstoday.co.uk").first,
   counter_interval: 1,
+  counter_start: 0,
   nr_pages: 3,
   scrape_url: "https://www.jobstoday.co.uk/searchjobs/?LocationId=1500&keywords=KEYWORD&radiallocation=10&countrycode=GB&Page=COUNTER&sort=Relevance"
 )
@@ -50,6 +52,7 @@ Scraper.create!(
   description_class: ".summary",
   website: Website.where(base_url: "www.indeed.co.uk").first,
   counter_interval: 1,
+  counter_start: 0,
   nr_pages: 3,
   scrape_url: "https://www.indeed.co.uk/jobs?q=KEYWORD&l=LOCATION&start=COUTNER"
 )
@@ -65,6 +68,7 @@ Scraper.create!(
   description_class: ".description p",
   website: Website.where(base_url: "www.reed.co.uk").first,
   counter_interval: 1,
+  counter_start: 1,
   nr_pages: 3,
   scrape_url: "https://www.reed.co.uk/jobs/jobs-in-LOCATION?keywords=KEYWORD&cached=True&pageno=COUNTER"
 )
