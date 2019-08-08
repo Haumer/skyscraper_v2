@@ -1,5 +1,6 @@
 class Job < ApplicationRecord
   belongs_to :search
+  belongs_to :website
 
   validates :title,  presence: true
   validates :salary, presence: true

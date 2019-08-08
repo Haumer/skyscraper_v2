@@ -1,7 +1,7 @@
 Website.destroy_all
 Scraper.destroy_all
 
-websites = %w( www.cv-library.co.uk www.jobstoday.co.uk www.indeed.co.uk www.totaljobs.com www.reed.co.uk )
+websites = %w( www.cv-library.co.uk www.jobstoday.co.uk www.indeed.co.uk www.totaljobs.com www.reed.co.uk www.jobsite.co.uk)
 
 websites.each do |website|
   name = website.split(".")[1]
@@ -71,4 +71,20 @@ Scraper.create!(
   counter_start: 1,
   nr_pages: 3,
   scrape_url: "https://www.reed.co.uk/jobs/jobs-in-LOCATION?keywords=KEYWORD&cached=True&pageno=COUNTER"
+)
+
+# REED
+Scraper.create!(
+  card_class: ".job",
+  title_class: "h2",
+  link_class: "a",
+  location_class: ".location",
+  company_class: ".company",
+  salary_class: ".salary",
+  description_class: ".job-intro",
+  website: Website.where(base_url: "www.jobsite.co.uk").first,
+  counter_interval: 1,
+  counter_start: 1,
+  nr_pages: 3,
+  scrape_url: "https://www.jobsite.co.uk/jobs/KEYWORD/in-LOCATION?radius=10&page=COUNTER"
 )

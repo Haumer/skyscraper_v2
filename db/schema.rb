@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190808095725) do
+ActiveRecord::Schema.define(version: 20190808131336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,9 @@ ActiveRecord::Schema.define(version: 20190808095725) do
     t.datetime "updated_at", null: false
     t.bigint "search_id"
     t.string "salary"
+    t.bigint "website_id"
     t.index ["search_id"], name: "index_jobs_on_search_id"
+    t.index ["website_id"], name: "index_jobs_on_website_id"
   end
 
   create_table "scrapers", force: :cascade do |t|
@@ -76,6 +78,7 @@ ActiveRecord::Schema.define(version: 20190808095725) do
   end
 
   add_foreign_key "jobs", "searches"
+  add_foreign_key "jobs", "websites"
   add_foreign_key "scrapers", "websites"
   add_foreign_key "searches", "users"
 end
