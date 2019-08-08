@@ -1,6 +1,9 @@
 Website.destroy_all
 Scraper.destroy_all
 
+user = User.create!(email: "alexander.haumer@me.com", password: "123456", admin: true)
+Search.create!(keyword: "ruby", location: "london", user: user)
+
 websites = %w( www.cv-library.co.uk www.jobstoday.co.uk www.indeed.co.uk www.totaljobs.com www.reed.co.uk www.jobsite.co.uk)
 
 websites.each do |website|
@@ -73,7 +76,7 @@ Scraper.create!(
   scrape_url: "https://www.reed.co.uk/jobs/jobs-in-LOCATION?keywords=KEYWORD&cached=True&pageno=COUNTER"
 )
 
-# REED
+# JOBSITE
 Scraper.create!(
   card_class: ".job",
   title_class: "h2",
