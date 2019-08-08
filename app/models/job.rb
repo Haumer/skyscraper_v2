@@ -7,4 +7,7 @@ class Job < ApplicationRecord
   validates :location, presence: true
   validates :link, presence: true
   validates :job_website, presence: true
+
+
+
 end
