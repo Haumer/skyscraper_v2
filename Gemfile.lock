@@ -41,6 +41,7 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (9.6.1)
       execjs
+    awesome_print (1.8.0)
     bcrypt (3.1.13)
     bindex (0.8.1)
     builder (3.2.3)
@@ -192,6 +193,7 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
+  awesome_print
   devise
   dotenv-rails
   font-awesome-sass (~> 5.6.1)
