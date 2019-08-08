@@ -9,6 +9,7 @@ class Scraper < ApplicationRecord
   validates :location_class, presence: true
   validates :company_class, presence: true
   validates :salary_class, presence: true
+  validates :description_class, presence: true
   belongs_to :website
 
   def crawl(search)
@@ -21,6 +22,7 @@ class Scraper < ApplicationRecord
             link = result_card.search(self.link_class).first['href']
             location = result_card.search(self.location_class).text.strip
             company = result_card.search(self.company_class).text.strip
+            description = result_card.search(self.description_class).text.strip
             if result_card.search(self.salary_class).text.strip.nil? || result_card.search(self.salary_class).text.strip.empty?
               salary = "unspecified"
             else
@@ -31,6 +33,7 @@ class Scraper < ApplicationRecord
               title: title,
               location: location,
               job_website: website,
+              description: description,
               website: self.website,
               salary: salary,
               company: company,
