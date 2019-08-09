@@ -55,7 +55,8 @@ ActiveRecord::Schema.define(version: 20190808173808) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.string "location"
-    t.boolean "status"
+    t.boolean "status_scraped"
+    t.boolean "status_formatted"
     t.string "status_message", default: "searching for jobs"
     t.index ["user_id"], name: "index_searches_on_user_id"
   end
