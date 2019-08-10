@@ -5,9 +5,8 @@ class FormattingJob < ApplicationJob
   def perform(search)
     @search = search
     search.jobs.each do |job|
-      job.title.gsub(/\s/, " ")
-      job.location.gsub(/\s/, " ")
-      job.save
+      job.update(title: job.title.gsub(/\s/, " "))
+      job.update(location: job.location.gsub(/\s/, " "))
     end
   end
 
