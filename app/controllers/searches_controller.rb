@@ -10,6 +10,13 @@ class SearchesController < ApplicationController
 
   def create
     @search = Search.new(user: current_user, keyword: search_params[:keyword])
+    @search.user = current_user
+    @search.location = "london"
+    if @search.save
+      redirect_to @search
+    else
+      render :new
+    end
   end
 
   def show

@@ -7,6 +7,11 @@ class FormattingJob < ApplicationJob
     search.jobs.each do |job|
       job.update(title: job.title.gsub(/\s/, " "))
       job.update(location: job.location.gsub(/\s/, " "))
+      if job.salary.gsub(/Â/,"").scan(/\d/).length < 4
+        job.salary = "unspecified"
+      else
+        job.update!(salary: job.salary.gsub(/Â/,"").scan(/£?(\d+k|\d+\.\d+|\d+|\d+,\d+|\d+)( - | to |\s-\s)?£?(\d+k|\d+\.\d+|\d+,\d+|\d+)?/).join.gsub("to", "-").gsub("k", "000"))
+      end
     end
   end
 

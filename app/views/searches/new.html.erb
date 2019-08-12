@@ -1,0 +1,4 @@
+<%= simple_form_for @search do |f| %>
+  <%= f.input :keyword, :label => 'Look for ', :input_html => { :class => 'search-new-title', :placeholder => "e.g. ruby"}%>
+  <%= f.button :submit, "Scrape!", class: "button-home"%>
+<% end %>
