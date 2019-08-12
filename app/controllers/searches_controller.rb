@@ -2,6 +2,7 @@ class SearchesController < ApplicationController
   include ActionController::Live
   def new
     @search = Search.new
+    @user = current_user
   end
 
   def index
@@ -13,6 +14,7 @@ class SearchesController < ApplicationController
     @search.user = current_user
     @search.location = "london"
     if @search.save
+      ScrapeAllJob.perform_later(@search)
       redirect_to @search
     else
       render :new

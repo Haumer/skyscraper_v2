@@ -10,7 +10,7 @@ class FormattingJob < ApplicationJob
       if job.salary.gsub(/Â/,"").scan(/\d/).length < 4
         job.salary = "unspecified"
       else
-        job.update!(salary: job.salary.gsub(/Â/,"").scan(/£?(\d+k|\d+\.\d+|\d+|\d+,\d+|\d+)( - | to |\s-\s)?£?(\d+k|\d+\.\d+|\d+,\d+|\d+)?/).join.gsub("to", "-").gsub("k", "000"))
+        job.update!(salary: job.salary.gsub(/Â/,"").scan(/£?(\d+k|\d+\.\d+|\d+|\d+,\d+|\d+)( - | to |\s-\s)?£?(\d+k|\d+\.\d+|\d+,\d+|\d+)?/).join.gsub("to", "-").gsub("k", "000").gsub(",", "").gsub(".00",""))
       end
     end
   end
