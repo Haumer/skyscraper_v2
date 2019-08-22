@@ -3,9 +3,11 @@ require 'rails_helper'
 RSpec.describe Search, type: :model do
   context 'on creation' do
     search = Search.new
-    it 'should pass validation' do
+    it 'should not pass validation if no args given' do
       search.valid?
+      expect validate_presence_of(:keyword)
       expect(search.errors[:keyword]).to include("can't be blank")
+      expect validate_presence_of(:location)
       expect(search.errors[:location]).to include("can't be blank")
     end
     it 'should have zero jobs associated' do
@@ -14,7 +16,7 @@ RSpec.describe Search, type: :model do
     end
   end
 
-  context 'general' do
+  context 'jobs association' do
     search = Search.create!(
       user: User.create(
         password: "123456",
