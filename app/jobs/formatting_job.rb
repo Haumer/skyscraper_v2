@@ -19,5 +19,6 @@ class FormattingJob < ApplicationJob
 
   def update_status_formatted
     @search.update(status_scraped: true, status_message: "finished formatting")
+    UpdateQualityJob.perform_later(@search)
   end
 end

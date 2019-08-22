@@ -14,7 +14,7 @@ class SearchesController < ApplicationController
     @search.user = current_user
     @search.location = "london"
     if @search.save
-      ScrapeAllJob.perform_later(@search)
+      ScrapeAllJob.perform_later(@search.id)
       redirect_to @search
     else
       render :new
@@ -22,7 +22,7 @@ class SearchesController < ApplicationController
   end
 
   def show
-    @search = Search.find(params[:id])
+    @search = Search.find(params[:id]).order(quality: :desc)
     @jobs = @search.jobs
   end
 

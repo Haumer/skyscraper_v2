@@ -2,10 +2,10 @@ class ScrapeAllJob < ApplicationJob
   queue_as :default
   after_perform :update_status_scrape
 
-  def perform(search)
-    @search = search
+  def perform(id)
+    @search = Search.find(id)
     Scraper.all.each do |scraper|
-      scraper.crawl(search)
+      scraper.crawl(@search)
     end
   end
 
@@ -14,5 +14,6 @@ class ScrapeAllJob < ApplicationJob
   def update_status_scrape
     @search.update(status_scraped: true, status_message: "finished scraping")
     FormattingJob.perform_later(@search)
+    RemoveDuplicatesJob.perform_later(@search)
   end
 end
