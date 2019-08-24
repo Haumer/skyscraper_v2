@@ -57,7 +57,7 @@ Scraper.create!(
   counter_interval: 1,
   counter_start: 0,
   nr_pages: 3,
-  scrape_url: "https://www.indeed.co.uk/jobs?q=KEYWORD&l=LOCATION&start=COUTNER"
+  scrape_url: "https://www.indeed.co.uk/jobs?q=KEYWORD&l=LOCATION&start=COUNTER"
 )
 
 # REED
