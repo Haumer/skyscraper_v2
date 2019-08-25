@@ -4,16 +4,15 @@ class RemoveDuplicatesJob < ApplicationJob
   def perform(search)
     @search = search
     @jobs = search.jobs
-    begin
     @jobs.each do |job|
-      @duplicates = Job.all.where(title: job.title).where(company: job.company).where(salary: job.salary).where(search_id: job.search_id)
-      # unless @duplicates.zero?
-      @duplicates[(1..-1)].each do |dup|
-        dup.destroy
+      begin
+        @duplicates = Job.all.where(title: job.title).where(company: job.company).where(salary: job.salary).where(search_id: job.search_id)
+        @duplicates[(1..-1)].each do |dup|
+          dup.destroy
+        end
+      rescue StandardError => e
+        puts e.message
       end
-    end
-    rescue StandardError => e
-      puts e.message
     end
   end
 end
