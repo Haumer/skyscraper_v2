@@ -11,7 +11,7 @@ RSpec.describe Search, type: :model do
       expect(search.errors[:location]).to include("can't be blank")
     end
     it 'should have zero jobs associated' do
-      should have_many(:jobs)
+      expect(search).to have_many(:jobs)
       expect(search.jobs.length).to eq(0)
     end
   end
@@ -39,7 +39,20 @@ RSpec.describe Search, type: :model do
       search: search
     )
     it 'should have the correct number of jobs' do
-      expect(search.jobs.length).to eq(1)
+      expect(search.reload.jobs.length).to eq(1)
+    end
+  end
+
+  context 'user association' do
+    user = User.first
+    search = Search.create!(
+      user: user,
+      location: "testlocation",
+      keyword: "testkeyword"
+    )
+    it 'should belong_to user' do
+      expect(search).to belong_to(:user)
+      expect(search.reload.user).to eq(user)
     end
   end
 end
