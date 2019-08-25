@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
       expect(invalid_user.errors[:password]).to include("can't be blank")
     end
     it 'should have zero searches associated' do
-      should have_many(:searches)
+      expect(no_args_user).to have_many(:searches)
       expect(User.create.searches.length).to eq(0)
     end
     it 'should not be an admin' do
