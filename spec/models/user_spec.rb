@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context 'on creation' do
     no_args_user = User.create
-    invalid_user = User.create
+    invalid_user = User.create(password: '', email: 'blah')
 
     it 'should not pass validation if no args given' do
       no_args_user.valid?
@@ -14,7 +14,9 @@ RSpec.describe User, type: :model do
     end
 
     it 'should not pass validation with incorrect args' do
-
+      invalid_user.valid?
+      expect(invalid_user.errors[:email]).to include('is invalid')
+      expect(invalid_user.errors[:password]).to include("can't be blank")
     end
     it 'should have zero searches associated' do
       should have_many(:searches)

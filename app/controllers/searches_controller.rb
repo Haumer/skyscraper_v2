@@ -22,7 +22,7 @@ class SearchesController < ApplicationController
   end
 
   def show
-    @search = Search.find(params[:id]).order(quality: :desc)
+    @search = Search.find(params[:id])
     @jobs = @search.jobs
   end
 
