@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Scraper, type: :model do
   before(:each) do
-    Scraper.destroy_all
     @scraper = Scraper.new
   end
   context 'on creation' do
@@ -41,22 +40,24 @@ RSpec.describe Scraper, type: :model do
     end
   end
 
-  # context '#build_url should build the correct urls' do
-  #   website = Website.create(base_url: 'www.indeed.co.uk')
-  #   @scraper = Scraper.create!(
-  #     card_class: '.result',
-  #     title_class: '.jobtitle',
-  #     link_class: 'a',
-  #     location_class: '.location',
-  #     company_class: '.company',
-  #     salary_class: '.no-wrap',
-  #     description_class: '.summary',
-  #     website: website,
-  #     counter_interval: 1,
-  #     counter_start: 0,
-  #     nr_pages: 1,
-  #     scrape_url: 'https://www.indeed.co.uk/jobs?q=KEYWORD&l=LOCATION&start=COUNTER'
-  #   )
-  #   expect(@scraper.build_url('ruby', 'london')).to eq('https://www.indeed.co.uk/jobs?q=ruby&l=london&start=1')
-  # end
+  context '#build_url' do
+    # website = Website.create!(base_url: 'www.indeed.co.uk', name: "indeed")
+    # @indeed_scraper = Scraper.create!(
+    #   card_class: '.result',
+    #   title_class: '.jobtitle',
+    #   link_class: 'a',
+    #   location_class: '.location',
+    #   company_class: '.company',
+    #   salary_class: '.no-wrap',
+    #   description_class: '.summary',
+    #   website: website,
+    #   counter_interval: 1,
+    #   counter_start: 0,
+    #   nr_pages: 1,
+    #   scrape_url: 'https://www.indeed.co.uk/jobs?q=KEYWORD&l=LOCATION&start=COUNTER'
+    # )
+    # it 'should build the correct url' do
+    #   expect(@indeed_scraper.reload.build_url('ruby', 'london')).to eq('https://www.indeed.co.uk/jobs?q=ruby&l=london&start=1')
+    # end
+  end
 end

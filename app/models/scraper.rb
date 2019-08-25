@@ -57,8 +57,13 @@ class Scraper < ApplicationRecord
 
   def build_url(keyword, location)
     url = self.scrape_url.gsub("KEYWORD", keyword).gsub("LOCATION", location)
+    begin
     (0...self.nr_pages).map do |count|
       url.gsub("COUNTER", "#{self.counter_interval * count}")
+    end
+    rescue StandardError => e
+      puts e.message
+      puts url
     end
   end
 end
