@@ -14,7 +14,6 @@ class RemoveDuplicatesJob < ApplicationJob
     end
     rescue StandardError => e
       puts e.message
-      puts url
     end
   end
 end
