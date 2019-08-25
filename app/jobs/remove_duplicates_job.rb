@@ -12,7 +12,9 @@ class RemoveDuplicatesJob < ApplicationJob
         dup.destroy
       end
     end
-    rescue
+    rescue StandardError => e
+      puts e.message
+      puts url
     end
   end
 end
