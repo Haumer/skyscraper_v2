@@ -4,7 +4,7 @@ RSpec.describe Search, type: :model do
   context 'on creation' do
     search = Search.new
     it 'should not pass validation if no args given' do
-      search.valid?
+      expect(search.valid?).to eq(false)
       expect validate_presence_of(:keyword)
       expect(search.errors[:keyword]).to include("can't be blank")
       expect validate_presence_of(:location)

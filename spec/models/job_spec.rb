@@ -4,7 +4,7 @@ RSpec.describe Job, type: :model do
   context 'on creation' do
     job = Job.new
     it 'should not pass validation if no args given' do
-      job.valid?
+      expect(job.valid?).to eq(false)
       expect validate_presence_of(:title)
       expect(job.errors[:title]).to include("can't be blank")
       expect validate_presence_of(:location)
