@@ -70,7 +70,9 @@ class Scraper < ApplicationRecord
     scrapers = {}
     Scraper.all.each do |scraper|
       if scraper.website.jobs.empty?
-        scrapers[scraper.website.name] = "has no jobs scraped"
+        scrapers[scraper.website.name] = ["has no jobs scraped", scraper.website.base_url]
+      elsif (Search.last.created_at - 1.minute ) > scraper.website.jobs.last.created_at
+        scrapers[scraper.website.name] = ["has no recent jobs scraped", scraper.website.base_url]
       else
         scrapers[scraper.website.name] = "last job was scraped on: #{scraper.website.jobs.last.created_at}"
       end
