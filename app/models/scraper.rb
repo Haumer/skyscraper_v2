@@ -1,4 +1,5 @@
 class Scraper < ApplicationRecord
+  require 'awesome_print'
   require 'open-uri'
 
   validates :scrape_url, presence: true, uniqueness: true
@@ -11,11 +12,12 @@ class Scraper < ApplicationRecord
   validates :salary_class, presence: true
   validates :description_class, presence: true
   belongs_to :website
+  has_many :scraper_errors
 
   def crawl(search)
     build_url(search.keyword, search.location).each_with_index do |url, i|
       begin
-        Timeout::timeout(2) do
+        Timeout::timeout(10) do
           page = Nokogiri::HTML(open(url))
           page.search(self.card_class).each do |result_card|
             if result_card.search(self.title_class).text.strip.downcase.include?(search.keyword) || result_card.search(self.description_class).text.strip.downcase.include?(search.keyword)
@@ -46,13 +48,15 @@ class Scraper < ApplicationRecord
         rescue Timeout::Error => e
           puts e.message
           puts url
+          ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
         end
       rescue StandardError => e
         puts e.message
         puts url
-        return
+        ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
       end
     end
+    Scraper.most_recent
   end
 
   def build_url(keyword, location)
@@ -60,5 +64,17 @@ class Scraper < ApplicationRecord
     (0...self.nr_pages).map do |count|
       url.gsub("COUNTER", "#{self.counter_interval * count}")
     end
+  end
+
+  def self.most_recent
+    scrapers = {}
+    Scraper.all.each do |scraper|
+      if scraper.website.jobs.empty?
+        scrapers[scraper.website.name] = "has no jobs scraped"
+      else
+        scrapers[scraper.website.name] = "last job was scraped on: #{scraper.website.jobs.last.created_at}"
+      end
+    end
+    ap scrapers
   end
 end
