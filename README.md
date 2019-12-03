@@ -6,7 +6,8 @@ example:
 1. noglob rake search:general['ruby']
 2. rake search:general\['ruby'\]
 
-=> lists all jobs from all websites that are being scraped
+=> lists all jobs from all websites for the KEYWORD 'ruby' that are being
+   scraped
 
 
 search:latest
@@ -26,11 +27,11 @@ example:
 => lists the 50 most recent errors
 
 
-search:errors[WEBSITE]
+search:errors[WEBSITE, NUMBER]
 
 example:
 1. noglob rake search:errors['cv-library']
 2. rake search:errors\['cv-library'\]
 
-=> lists the 50 most recent errors for cv-library
+=> lists the 'NUMBER' most recent errors for cv-library, NUMBER defaults to 50
 
