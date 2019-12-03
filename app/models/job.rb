@@ -8,4 +8,5 @@ class Job < ApplicationRecord
   validates :link, presence: true
   validates :job_website, presence: true
   validates :quality, presence: true
+
 end

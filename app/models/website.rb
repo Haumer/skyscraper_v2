@@ -9,4 +9,8 @@ class Website < ApplicationRecord
   def self.all_scrapers
     ap Scraper.all.map { |scraper| scraper.scrape_url }
   end
+
+  def self.list
+    self.all.each_with_index { |website, i| puts "#{i+1}. - #{website.name}" }
+  end
 end

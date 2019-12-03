@@ -1,49 +1,49 @@
 GIT
   remote: https://github.com/rspec/rspec-core.git
-  revision: 77dbc84657c5dc45e07a7fe0f5b02b4caeb6c9ad
+  revision: b7067c5da4fde57cbbff739b168008482e61db44
   branch: master
   specs:
-    rspec-core (3.9.0.pre)
-      rspec-support (= 3.9.0.pre)
+    rspec-core (3.10.0.pre)
+      rspec-support (= 3.10.0.pre)
 
 GIT
   remote: https://github.com/rspec/rspec-expectations.git
-  revision: 75f5cc9cab09fd0728bcf95e26d2c4b46f73c466
+  revision: 99f9bcaff2a6f3d82f4e350e829eca6ab015694f
   branch: master
   specs:
-    rspec-expectations (3.9.0.pre)
+    rspec-expectations (3.10.0.pre)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (= 3.9.0.pre)
+      rspec-support (= 3.10.0.pre)
 
 GIT
   remote: https://github.com/rspec/rspec-mocks.git
-  revision: 2aab10d3e7a9c1c500acd1e88a7a408670f8cc48
+  revision: 5b897e8f74f3059aef43f1ed5f91719f2267a04e
   branch: master
   specs:
-    rspec-mocks (3.9.0.pre)
+    rspec-mocks (3.10.0.pre)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (= 3.9.0.pre)
+      rspec-support (= 3.10.0.pre)
 
 GIT
   remote: https://github.com/rspec/rspec-rails.git
-  revision: 2d183ced23d2d41ec1ad28f0f5f0582712b01642
+  revision: 9b7ab39c027a8cb25e2ebe9e0e985756025b0549
   branch: master
   specs:
-    rspec-rails (3.9.0.pre)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (= 3.9.0.pre)
-      rspec-expectations (= 3.9.0.pre)
-      rspec-mocks (= 3.9.0.pre)
-      rspec-support (= 3.9.0.pre)
+    rspec-rails (4.0.0.pre)
+      actionpack (>= 4.2)
+      activesupport (>= 4.2)
+      railties (>= 4.2)
+      rspec-core (= 3.10.0.pre)
+      rspec-expectations (= 3.10.0.pre)
+      rspec-mocks (= 3.10.0.pre)
+      rspec-support (= 3.10.0.pre)
 
 GIT
   remote: https://github.com/rspec/rspec-support.git
-  revision: c69a231d7369dd165ad7ce4742e1a2e21e3462b5
+  revision: 673133cdd13b17077b3d88ece8d7380821f8d7dc
   branch: master
   specs:
-    rspec-support (3.9.0.pre)
+    rspec-support (3.10.0.pre)
 
 GEM
   remote: https://rubygems.org/
@@ -85,8 +85,10 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     arel (8.0.0)
-    autoprefixer-rails (9.6.1)
+    autoprefixer-rails (9.6.5)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.13)
@@ -97,10 +99,10 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.5)
-    devise (4.6.2)
+    devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 6.0)
+      railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
@@ -108,14 +110,14 @@ GEM
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
       railties (>= 3.2, < 6.1)
-    erubi (1.8.0)
+    erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.11.1)
     font-awesome-sass (5.6.1)
       sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    i18n (1.6.0)
+    i18n (1.7.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -130,9 +132,9 @@ GEM
     method_source (0.9.2)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.11.3)
-    nio4r (2.4.0)
-    nokogiri (1.10.5)
+    minitest (5.12.2)
+    nio4r (2.5.2)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
@@ -144,10 +146,11 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    puma (4.0.1)
+    public_suffix (4.0.1)
+    puma (4.2.1)
       nio4r (~> 2.0)
     rack (2.0.7)
-    rack-protection (2.0.5)
+    rack-protection (2.0.7)
       rack
     rack-proxy (0.6.5)
       rack
@@ -168,25 +171,31 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.2.0)
-      loofah (~> 2.2, >= 2.2.2)
+    rails-html-sanitizer (1.3.0)
+      loofah (~> 2.3)
     railties (5.1.6)
       actionpack (= 5.1.6)
       activesupport (= 5.1.6)
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (12.3.3)
+    rainbow (3.0.0)
+    rake (13.0.0)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    redis (4.1.2)
+    react_on_rails (11.1.4)
+      addressable
+      connection_pool
+      execjs (~> 2.5)
+      rails (>= 3.2)
+      rainbow (~> 3.0)
+    redis (4.1.3)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    sassc (2.0.1)
+    sassc (2.2.1)
       ffi (~> 1.9)
-      rake
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
       sassc (>= 2.0)
@@ -202,14 +211,14 @@ GEM
       redis (>= 3.3.5, < 5)
     sidekiq-failures (1.0.0)
       sidekiq (>= 4.0.0)
-    simple_form (4.1.0)
+    simple_form (5.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
-    sprockets (3.7.2)
+    sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -218,10 +227,10 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.20.3)
     thread_safe (0.3.6)
-    tilt (2.0.9)
+    tilt (2.0.10)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.20)
+    uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -254,6 +263,7 @@ DEPENDENCIES
   pry-rails
   puma
   rails (= 5.1.6)
+  react_on_rails (= 11.1.4)
   redis
   rspec-core!
   rspec-expectations!
@@ -275,4 +285,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.17.3
+   2.0.2
