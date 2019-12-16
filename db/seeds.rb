@@ -13,18 +13,18 @@ end
 
 # CV-LIBRARY
 Scraper.create!(
-  card_class: ".job-search-description",
-  title_class: "#js-jobtitle-details",
-  link_class: ".jobtitle-divider a",
-  location_class: "#js-loc-details",
-  company_class: ".agency-link-mobile",
-  salary_class: "#js-salary-details",
-  description_class: ".job-search-details-description.search-result-desc.show-desc",
+  card_class: ".results__item",
+  title_class: ".job__title",
+  link_class: ".job__title a",
+  location_class: ".job__details-location",
+  company_class: ".company + dd a",
+  salary_class: "dd.salary",
+  description_class: ".job__description.noscript-show",
   website: Website.where(base_url: "www.cv-library.co.uk").first,
-  counter_interval: 25,
+  counter_interval: 100,
   counter_start: 0,
   nr_pages: 3,
-  scrape_url: "https://www.cv-library.co.uk/search-jobs?distance=15&fp=1&geo=LOCATION&offset=COUNTER&posted=28&q=KEYWORD&salarymax=&salarymin=&salarytype=annum&search=1&tempperm=Any"
+  scrape_url: "https://www.cv-library.co.uk/search-jobs?distance=15&fp=1&geo=LOCATION&offset=COUNTER&perpage=100&posted=28&q=KEYWORD&salarymax=&salarymin=&salarytype=annum&search=1&tempperm=Any"
 )
 
 # JOBSTODAY

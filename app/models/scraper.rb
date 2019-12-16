@@ -12,12 +12,12 @@ class Scraper < ApplicationRecord
   validates :salary_class, presence: true
   validates :description_class, presence: true
   belongs_to :website
-  has_many :scraper_errors
+  has_many :scraper_errors, dependent: :destroy
 
   def crawl(search)
     build_url(search.keyword, search.location).each_with_index do |url, i|
       begin
-        Timeout::timeout(10) do
+        Timeout::timeout(15) do
           page = Nokogiri::HTML(open(url))
           page.search(self.card_class).each do |result_card|
             if result_card.search(self.title_class).text.strip.downcase.include?(search.keyword) || result_card.search(self.description_class).text.strip.downcase.include?(search.keyword)
@@ -55,13 +55,14 @@ class Scraper < ApplicationRecord
         puts url
         ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
       end
+      sleep(0.5)
     end
     Scraper.most_recent
   end
 
   def build_url(keyword, location)
     url = self.scrape_url.gsub("KEYWORD", keyword).gsub("LOCATION", location)
-    (0...self.nr_pages).map do |count|
+    (self.counter_start...self.nr_pages).map do |count|
       url.gsub("COUNTER", "#{self.counter_interval * count}")
     end
   end
