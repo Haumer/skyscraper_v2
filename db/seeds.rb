@@ -1,7 +1,7 @@
 Website.destroy_all
 Scraper.destroy_all
 
-user = User.create!(email: "alexander.haumer@me.com", password: "123456", admin: true)
+user = User.create!(email: "default@skyscraper.com", password: "123456", admin: true)
 Search.create!(keyword: "ruby", location: "london", user: user)
 
 websites = %w( www.cv-library.co.uk www.jobstoday.co.uk www.indeed.co.uk www.totaljobs.com www.reed.co.uk www.jobsite.co.uk)
