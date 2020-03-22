@@ -1,8 +1,8 @@
 class UpdateQualityJob < ApplicationJob
   queue_as :default
 
-  def perform(search)
-    @search = search
+  def perform(id)
+    @search = Search.find(id)
     @jobs = @search.jobs
     @jobs.each do |job|
       job.quality = -1

@@ -2,9 +2,9 @@ class FormattingJob < ApplicationJob
   queue_as :default
   after_perform :update_status_formatted
 
-  def perform(search)
-    @search = search
-    search.jobs.each do |job|
+  def perform(id)
+    @search = Search.find(id)
+    @search.jobs.each do |job|
       job.update(title: job.title.gsub(/\s/, " "))
       job.update(location: job.location.gsub(/\s/, " "))
       if job.salary.gsub(/Â/,"").scan(/\d/).length < 4
@@ -19,6 +19,6 @@ class FormattingJob < ApplicationJob
 
   def update_status_formatted
     @search.update(status_scraped: true, status_message: "finished formatting")
-    UpdateQualityJob.perform_later(@search)
+    UpdateQualityJob.perform_later(@search.id)
   end
 end

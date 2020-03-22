@@ -1,8 +1,13 @@
 namespace :search do
   desc "Search all websites for a job"
   task :general, [:job] => :environment do |t, args|
+    puts "Starting Job scraper"
     search = Search.create!(keyword: "#{args[:job]}", location: "london", user: User.find_by_email("default@skyscraper.com"))
-    ScrapeAllJob.perform_later(search.id)
+    ScrapeAllJob.perform_now(search.id)
+    puts "=> Scraped!"
+    puts "Starting Quality check"
+    FormattingJob.perform_now(search.id)
+    search.report
   end
 
   desc "Check website scraping has been successful"
