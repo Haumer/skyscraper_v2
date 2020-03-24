@@ -48,11 +48,13 @@ example:
 => lists the 50 most recent errors
 
 
-search:errors[WEBSITE, NUMBER]
+search:errors['WEBSITE', NUMBER]
 
 example:
 1. noglob rake search:errors['cv-library']
 2. rake search:errors\\['cv-library'\\]
+3. rake search:errors\\['cv-library', 10\\]
+
 
 => lists the 'NUMBER' most recent errors for cv-library, NUMBER defaults to 50
 
