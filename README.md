@@ -1,22 +1,22 @@
-## Setup:
+# Setup:
 
-# Clone repo
+## Clone repo
 ```git clone git@github.com:Haumer/skyscraper_v2.git```
 
-# Install gems
+## Install gems
 ```bundle```
 
-# JS dependencies
+## JS dependencies
 ```yarn```
 
-# DB setup
+## DB setup
 ```rails db:create db:migrate db:seed```
 
 The seed has a default User with email: default@skyscraper.com and password: 123456 set as admin: true
 
-## Running:
+# Running:
 
-# Make sure to have redis and sidekiq running:
+## Make sure to have redis and sidekiq running:
 ```sidekiq```
 
 ## Default available Tasks:
