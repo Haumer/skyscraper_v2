@@ -12,6 +12,17 @@ class FormattingJob < ApplicationJob
       else
         job.update!(salary: job.salary.gsub(/Â/,"").scan(/£?(\d+k|\d+\.\d+|\d+|\d+,\d+|\d+)( - | to |\s-\s)?£?(\d+k|\d+\.\d+|\d+,\d+|\d+)?/).join.gsub("to", "-").gsub("k", "000").gsub(",", "").gsub(".00",""))
       end
+
+      if job.salary.match(/\d+\s?-\s?\d/)
+        salaries = job.salary.split("-").map { |string| string.scan(/\d/).join.to_i }
+        if salaries[0] < salaries[1]
+          job.lower_salary = salaries[0]
+          job.upper_salary = salaries[1]
+        else
+          job.lower_salary = salaries[1]
+          job.upper_salary = salaries[0]
+        end
+      end
     end
   end
 
