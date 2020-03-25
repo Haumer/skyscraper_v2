@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.6.5'
 
+gem 'pundit'
 gem 'awesome_print'
 gem 'devise'
 gem 'jbuilder', '~> 2.0'
