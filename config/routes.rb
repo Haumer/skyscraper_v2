@@ -7,6 +7,11 @@ Rails.application.routes.draw do
 
   devise_for :users
   root to: 'searches#new'
-  resources :searches, only: [ :new, :create, :show, :index ]
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :restaurants, only: [ :index ]
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
