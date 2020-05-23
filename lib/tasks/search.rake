@@ -32,7 +32,6 @@ namespace :search do
       end
     else
       if args.key?(:number)
-        p args[:number]
         ap ScraperError.general.first(args[:number])
       else
         ap ScraperError.general.first(50)
