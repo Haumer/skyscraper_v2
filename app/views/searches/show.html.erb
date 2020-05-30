@@ -3,14 +3,16 @@
     <div class="jobs-result-summary">
       We found a total of <b><%= pluralize(@jobs.count, "Job") %></b> for you!
     </div>
-    <div class="grid jobs-result" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 1 }'>
-      <% @jobs.each do |job| %>
-        <div class="job-card grid-item">
-          <%= job.title.truncate(30) %>
-          <br>
-          <%= job.salary %>
-        </div>
-      <% end %>
+    <div class="jobs-result">
+      <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 160 }'>
+        <% @jobs.each do |job| %>
+          <div class="grid-item <%= "grid-item--width2" if job.quality >2 %> <%= "grid-item--height2" if job.quality >3 %>">
+            <%= job.title.truncate(35) %>
+            <br>
+            <%= job.salary %>
+          </div>
+        <% end %>
+      </div>
     </div>
   <% else %>
     <div class="jobs-result-summary">
