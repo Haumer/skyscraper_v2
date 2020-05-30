@@ -5,8 +5,8 @@ class FormattingJob < ApplicationJob
   def perform(id)
     @search = Search.find(id)
     @search.jobs.each do |job|
-      job.update(title: job.title.gsub(/\s/, " "))
-      job.update(location: job.location.gsub(/\s/, " "))
+      job.update(title: job.title.gsub(/\s+/, " "))
+      job.update(location: job.location.gsub(/\s+/, " "))
       if job.salary.gsub(/Â/,"").scan(/\d/).length < 4
         job.salary = "unspecified"
       else

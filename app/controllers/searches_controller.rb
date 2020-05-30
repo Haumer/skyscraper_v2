@@ -16,6 +16,7 @@ class SearchesController < ApplicationController
     @search.location = "london"
     authorize @search
     if @search.save!
+      ScrapeAllJob.perform_later(@search.id)
       redirect_to @search
     else
       render :new
