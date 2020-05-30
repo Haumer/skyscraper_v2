@@ -1,0 +1,21 @@
+<div class="jobs-show-container">
+  <% if @jobs %>
+    <div class="jobs-result-summary">
+      We found a total of <b><%= pluralize(@jobs.count, "Job") %></b> for you!
+    </div>
+    <div class="grid jobs-result" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 1 }'>
+      <% @jobs.each do |job| %>
+        <div class="job-card grid-item">
+          <%= job.title.truncate(30) %>
+          <br>
+          <%= job.salary %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="jobs-result-summary">
+      We couldnt find any Jobs for you this time!
+      <%= link_to "click here to search again!", root_path %>
+    </div>
+  <% end %>
+</div>

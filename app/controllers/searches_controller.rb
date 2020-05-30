@@ -24,6 +24,7 @@ class SearchesController < ApplicationController
   end
 
   def show
+    @jobs = @search.jobs.order(quality: :desc)
   end
 
   private
