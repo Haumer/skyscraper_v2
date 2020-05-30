@@ -19,7 +19,7 @@ module SkyscraperV2
     config.active_job.queue_adapter = :sidekiq
 
     # If API only
-    config.api_only = true
+    config.api_only = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

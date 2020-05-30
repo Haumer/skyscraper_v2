@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   root to: 'searches#new'
+  resources :searches
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
