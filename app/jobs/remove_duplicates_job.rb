@@ -1,9 +1,9 @@
 class RemoveDuplicatesJob < ApplicationJob
   queue_as :default
 
-  def perform(search)
-    @search = search
-    @jobs = search.jobs
+  def perform(id)
+    @search = Search.find(id)
+    @jobs = @search.jobs
     @jobs.each do |job|
       begin
         @duplicates = Job.all.where(title: job.title).where(company: job.company).where(salary: job.salary).where(search_id: job.search_id)
