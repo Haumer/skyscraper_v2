@@ -33,6 +33,12 @@ class Search < ApplicationRecord
   end
 
   def avg_salary
-    jobs
+    selected = jobs.where.not(upper_salary: nil)
+    total = selected.map do |job|
+      unless job.upper_salary > 200000 || job.lower_salary > 200000
+        (job.upper_salary + job.lower_salary) / 2
+      end
+    end.reject(&:blank?)
+    total.sum / total.count
   end
 end
