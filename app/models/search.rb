@@ -31,4 +31,8 @@ class Search < ApplicationRecord
       }
     ]
   end
+
+  def avg_salary
+    jobs
+  end
 end

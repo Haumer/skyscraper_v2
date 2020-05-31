@@ -4,7 +4,7 @@
 }
 
 .grid {
-  width: 1200px
+  width: 1120px
 }
 
 .grid:after {
@@ -16,11 +16,11 @@
 .grid-item {
   width: 160px;
   height: 120px;
-  float: left;
-  background: grey;
-  border: 2px solid grey;
-  border-color: hsla(0, 0%, 0%, 0.5);
+  background: rgba(242, 242, 242, 1);
+  border: 2px solid rgba(242, 242, 242, 1);
+  border-color: hsla(0, 0%, 0%, 0.2);
   border-radius: 5px;
+  float: left;
 }
 
 .grid-item--width2 { width: 320px; }

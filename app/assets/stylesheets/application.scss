@@ -12,3 +12,16 @@
 @import "components/index";
 @import "pages/index";
 @import "search/index";
+
+a {
+  text-decoration: none;
+  color: black;
+  &:hover {
+    text-decoration: none;
+    color: black;
+  }
+  &:visited {
+    text-decoration: none;
+    color: black;
+  }
+}

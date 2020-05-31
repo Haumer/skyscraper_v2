@@ -1,7 +1,16 @@
 <div class="jobs-show-container">
-  <% if @jobs %>
-    <div class="jobs-result-summary">
-      We found a total of <b><%= pluralize(@jobs.count, "Job") %></b> for you!
+  <% if @jobs.any? %>
+    <div class="jobs-result">
+      <div class="jobs-result-summary" style="
+      height: 120px;
+      background: rgba(242, 242, 242, 1);
+      border: 2px solid rgba(242, 242, 242, 1);
+      border-color: hsla(0, 0%, 0%, 0.2);
+      border-radius: 5px;
+      width: 1120px;
+      padding: 10px;">
+        We found a total of <b><%= pluralize(@jobs.count, "Job") %></b> for you!
+      </div>
     </div>
     <div class="jobs-result">
       <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 160 }'
