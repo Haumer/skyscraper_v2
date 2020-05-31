@@ -4,10 +4,12 @@
       <p class="name"><b><%= job.title.truncate(job.title_length) %></b></p>
     </div>
     <div class="job-info">
-      <p><%= job.salary %></p>
+      <% unless job.salary == "unspecified" %>
+        <p><%= job.salary %></p>
+      <% end %>
       <p><%= job.company %></p>
       <% if job.quality > 3 %>
-        <p><%= job.description %></p>
+        <p><%= job.description.truncate(250) %></p>
       <% end %>
     </div>
   <% end %>

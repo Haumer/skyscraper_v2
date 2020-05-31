@@ -10,6 +10,8 @@
       width: 1120px;
       padding: 10px;">
         We found a total of <b><%= pluralize(@jobs.count, "Job") %></b> for you!
+        <br>
+        The average fulltime salary for this search is <b>£<%= @search.avg_salary[:avg] %></b>! (counted <%= @search.avg_salary[:count] %>)
       </div>
     </div>
     <div class="jobs-result">

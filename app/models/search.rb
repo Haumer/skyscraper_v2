@@ -39,6 +39,10 @@ class Search < ApplicationRecord
         (job.upper_salary + job.lower_salary) / 2
       end
     end.reject(&:blank?)
-    total.sum / total.count
+    {avg: total.sum / total.count, count: total.count }
+  end
+
+  def highest_salary
+    jobs.where.not(upper_salary: nil).order(lower_salary: :desc).first
   end
 end
