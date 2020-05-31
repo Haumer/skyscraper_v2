@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20200531223646) do
     t.boolean "admin", default: false, null: false
     t.boolean "api_access", default: false
     t.boolean "active_search", default: false
-    t.string "github_username", default: "f"
+    t.string "github_username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
