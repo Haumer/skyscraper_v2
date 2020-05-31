@@ -8,4 +8,8 @@ class UserPolicy < ApplicationPolicy
   def show?
     !user.nil?
   end
+
+  def update?
+    !user.nil?
+  end
 end
