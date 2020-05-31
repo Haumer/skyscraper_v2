@@ -1,4 +1,13 @@
-<%= simple_form_for @search do |f| %>
-  <%= f.input :keyword, :label => 'Look for ', :input_html => { :class => 'search-new-title', :placeholder => "e.g. ruby"}%>
-  <%= f.button :submit, "Scrape!", class: "button-home"%>
+<% if user_signed_in? %>
+  <% if current_user.active_search %>
+    <%= simple_form_for @search do |f| %>
+      <%= f.input :keyword, :label => 'Look for ', :input_html => { :class => 'search-new-title', :placeholder => "e.g. ruby"}%>
+      <%= f.button :submit, "Scrape!", class: "button-home"%>
+    <% end %>
+  <% else %>
+    <%= form_tag jobs_path, method: :get do %>
+      <%= text_field_tag :keyword, params[:keyword], class: "form-control" %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
 <% end %>

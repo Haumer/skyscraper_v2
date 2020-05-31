@@ -1,6 +1,7 @@
 <%= simple_form_for user do |f| %>
   <% if user.admin %>
     <%= f.input :api_access %>
+    <%= f.input :active_search %>
   <% end %>
   <%= f.input :github_username %>
   <%= f.input :email %>

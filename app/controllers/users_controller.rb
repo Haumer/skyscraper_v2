@@ -7,6 +7,9 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       redirect_to @user
+      flash[:notice] = "Successfully updated"
+    else
+      render "users/form", flash[:notice] = "A problem occured"
     end
   end
 
