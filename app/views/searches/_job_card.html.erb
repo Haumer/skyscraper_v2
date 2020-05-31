@@ -1,0 +1,12 @@
+<div class="job-card-content">
+  <div class="job-title">
+    <h6 class="name"><%= job.title.truncate(job.title_length) %></h6>
+  </div>
+  <div class="job-info">
+    <p><%= job.salary %></p>
+    <p><%= job.company %></p>
+    <% if job.quality > 3 %>
+      <p><%= job.description %></p>
+    <% end %>
+  </div>
+</div>

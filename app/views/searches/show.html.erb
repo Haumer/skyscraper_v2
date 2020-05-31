@@ -4,7 +4,8 @@
       We found a total of <b><%= pluralize(@jobs.count, "Job") %></b> for you!
     </div>
     <div class="jobs-result">
-      <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 160 }'>
+      <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 160 }'
+      data-isotope='{ "itemSelector": ".grid-item", "layoutMode": "fitRows" }'>
         <% @jobs.each do |job| %>
           <%= render "searches/grid_item",
           job: job,
