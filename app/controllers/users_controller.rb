@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    # raise
     if @user.update(user_params)
       redirect_to @user
       flash[:notice] = "Successfully updated"
@@ -21,6 +22,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:api_access, :github_username)
+    params.require(:user).permit(:api_access, :github_username, :active_search)
   end
 end

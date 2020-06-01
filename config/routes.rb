@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'searches#new'
   resources :searches
+  resources :jobs, only: [ :index ]
   resources :users, only: [ :show, :update ]
 
   namespace :api, defaults: { format: :json } do
