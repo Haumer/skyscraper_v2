@@ -1,0 +1,41 @@
+.checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.checkbox-label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 40px;
+  height: 20px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.checkbox-label:after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+.checkbox:checked + .checkbox-label {
+  background: #bada55;
+}
+
+.checkbox:checked + .checkbox-label:after {
+  left: calc(100% - 1px);
+  transform: translateX(-100%);
+}
+
+.checkbox-label:active:after {
+  width: 13px;
+}
