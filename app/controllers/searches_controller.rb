@@ -15,10 +15,11 @@ class SearchesController < ApplicationController
     @search.user = current_user
     @search.location = "london"
     authorize @search
-    if @search.save!
+    if @search.save
       ScrapeAllJob.perform_later(@search.id)
       redirect_to @search
     else
+      flash.now[:error] = "Please enter a keyword!"
       render :new
     end
   end

@@ -11,8 +11,13 @@
       <label class="form-check-label boolean optional checkbox-label" for="user_active_search"></label> <span class="ml-1"> Active search </span>
     </div>
   <% end %>
-  <%= f.input :github_username %>
-  <%= f.input :email %>
-
-  <%= f.submit %>
+  <div class="form-group string optional user_github_username form-group-valid d-flex align-items-center">
+    <input class="form-control is-valid string optional custom-input" type="text" value="<%= user.github_username %>" name="user[github_username]" id="user_github_username">
+    <label class="form-control-label string optional m-0" for="user_github_username">Github username</label>
+  </div>
+  <div class="form-group email optional user_email form-group-valid d-flex align-items-center">
+    <input class="form-control is-valid string email optional custom-input" type="email" value="<%= user.email %>" name="user[email]" id="user_email" disabled>
+    <label class="form-control-label email optional m-0" for="user_email">Email</label>
+  </div>
+  <%= f.submit class: "btn btn-primary" %>
 <% end %>
