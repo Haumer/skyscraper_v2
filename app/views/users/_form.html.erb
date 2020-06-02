@@ -1,7 +1,19 @@
 <%= simple_form_for user do |f| %>
   <% if user.admin %>
-    <%= f.input :api_access %>
-    <%= f.input :active_search %>
+    <div class="form-check">
+      <input name="user[api_access]" type="hidden" value="0">
+      <input class="form-check-input is-valid boolean optional" type="checkbox" value="1" checked="checked" name="user[api_access]" id="user_api_access" hidden>
+      <label class="form-check-label boolean optional" for="user_api_access">
+        Api access
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="user[active_search]" type="hidden" value="0">
+      <input class="form-check-input is-valid boolean optional" type="checkbox" value="1" checked="checked" name="user[active_search]" id="user_active_search" hidden>
+      <label class="form-check-label boolean optional" for="user_active_search">
+        Active search
+      </label>
+    </div>
   <% end %>
   <%= f.input :github_username %>
   <%= f.input :email %>
