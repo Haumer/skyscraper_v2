@@ -1,0 +1,31 @@
+
+// position top
+[data-tooltip]{
+  position: relative;
+  cursor: default;
+}
+[data-tooltip]::after{
+  position: absolute;
+  width: 140px;
+  left:calc(50% - 70px);
+  content: attr(data-tooltip);
+  bottom: 25px;
+  text-align: center;
+  box-sizing: border-box;
+  color: white;
+  background-color: black;
+  padding: 3px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  font-weight: bold;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
