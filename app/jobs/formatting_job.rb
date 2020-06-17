@@ -30,7 +30,7 @@ class FormattingJob < ApplicationJob
     end
   end
 
-  # change update into one db call
+  # TODO: change update into one db call
   private
 
   def update_status_formatted
