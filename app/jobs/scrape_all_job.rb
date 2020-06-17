@@ -13,7 +13,11 @@ class ScrapeAllJob < ApplicationJob
 
   def update_status_scrape
     @search.update(status_scraped: true, status_message: "finished scraping")
+    puts "Formatting..."
     FormattingJob.perform_later(@search.id)
+    puts "done!"
+    puts "Removing duplicates..."
     RemoveDuplicatesJob.perform_later(@search.id)
+    puts "done!"
   end
 end

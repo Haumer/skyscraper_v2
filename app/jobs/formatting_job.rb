@@ -7,6 +7,7 @@ class FormattingJob < ApplicationJob
     @search.jobs.each do |job|
       job.update(title: job.title.gsub(/\s+/, " "))
       job.update(location: job.location.gsub(/\s+/, " "))
+      job.update(description: job.location.gsub(/\s+/, " "))
       if job.company[0..(job.company.length/2 - 1)] == job.company[job.company.length/2..-1]
         job.company = job.company[0..job.company.length/2 - 1]
       end
