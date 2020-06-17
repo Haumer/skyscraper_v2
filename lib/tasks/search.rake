@@ -15,6 +15,19 @@ namespace :search do
     Scraper.most_recent
   end
 
+  task :preset do
+    desc "search for preset keywords"
+    keywords = ["software developer", "software engineer", "frontend", "backend", "fullstack", "ruby", "python", "javascript", "node", "react", "angular"]
+    puts "searching for:"
+    keywords.each do |keyword|
+      puts ">#{keyword}. starting."
+      search = Search.create!(keyword: keyword, location: "london", user: User.find_by_email("lewagon@skyscraper.com"))
+      ScrapeAllJob.perform_now(search.id)
+      puts "done."
+    end
+    puts "search complete!"
+  end
+
   desc "Check errors for one/all scraper(s)"
   task :errors, [:scraper, :number] => :environment do |t, args|
     if args.key?(:scraper) && !args[:scraper].empty?

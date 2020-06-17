@@ -18,7 +18,6 @@ class FormattingJob < ApplicationJob
 
       if job.salary.match(/(\d+)\s?-\s?(\d+)/)
         salaries = job.salary.split("-").map { |string| string.scan(/\d/).join.to_i }
-        p salaries
         if salaries[0] < salaries[1]
           job.lower_salary = salaries[0].to_i
           job.upper_salary = salaries[1].to_i
