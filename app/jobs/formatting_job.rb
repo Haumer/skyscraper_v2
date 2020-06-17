@@ -5,26 +5,28 @@ class FormattingJob < ApplicationJob
   def perform(id)
     @search = Search.find(id)
     @search.jobs.each do |job|
-      job.update(title: job.title.gsub(/\s+/, " "))
-      job.update(location: job.location.gsub(/\s+/, " "))
-      job.update(description: job.location.gsub(/\s+/, " "))
+      job.title = job.title.gsub(/\s+/, " ")
+      job.location = job.location.gsub(/\s+/, " ")
+      job.description = job.location.gsub(/\s+/, " ")
       if job.company[0..(job.company.length/2 - 1)] == job.company[job.company.length/2..-1]
         job.company = job.company[0..job.company.length/2 - 1]
       end
-      if job.salary.gsub(/Â/,"").scan(/\d/).length < 4
-        job.salary = "unspecified"
+      if job.salary.gsub(/Â/,"").scan(/(\d{1,3}[,\.]?\d{0,3})/).flatten.length < 1
+        job.update!(salary: "unspecified")
       else
-        job.update!(salary: job.salary.gsub(/Â/,"").scan(/£?(\d+k|\d+\.\d+|\d+|\d+,\d+|\d+)( - | to |\s-\s)?£?(\d+k|\d+\.\d+|\d+,\d+|\d+)?/).join.gsub("to", "-").gsub("k", "000").gsub(",", "").gsub(".00",""))
+        job.update!(salary: job.salary.scan(/(\d{1,3}[,\.]?\d{0,3})/).join("-"))
       end
 
-      if job.salary.match(/(\d+)\s?-\s?(\d+)/)
-        salaries = job.salary.split("-").map { |string| string.scan(/\d/).join.to_i }
-        if salaries[0] < salaries[1]
-          job.lower_salary = salaries[0].to_i
-          job.upper_salary = salaries[1].to_i
-        else
-          job.lower_salary = salaries[0].to_i
-          job.upper_salary = salaries[1].to_i
+      salaries = job.salary.scan(/(\d{1,3}[,\.]?\d{0,3})/).flatten
+      unless salaries.length <= 1
+        salaries = salaries.flatten.map { |salary| salary.scan(/\d/).join.to_i }
+        p salaries
+         if salaries[0] < salaries[1]
+           job.lower_salary = salaries[0].to_i
+           job.upper_salary = salaries[1].to_i
+         else
+           job.lower_salary = salaries[0].to_i
+           job.upper_salary = salaries[1].to_i
         end
         job.save
       end
