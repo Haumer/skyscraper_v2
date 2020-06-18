@@ -8,7 +8,7 @@ class FormattingJob < ApplicationJob
       job = remove_space_chars(job)
       job = remove_duplicate_name(job)
       job = salary_digits(job)
-      job = salary_bounds(salaries)
+      job = salary_bounds(job)
       job.save
     end
   end
@@ -19,13 +19,13 @@ class FormattingJob < ApplicationJob
   def remove_space_chars(job)
     job.title = job.title.gsub(/\s+/, " ")
     job.location = job.location.gsub(/\s+/, " ")
-    job.description = job.location.gsub(/\s+/, " ")
+    job.description = job.description.gsub(/\s+/, " ")
     job
   end
 
   def remove_duplicate_name(job)
-    double? = job.company[0..(job.company.length/2 - 1)] == job.company[job.company.length/2..-1]
-    job.company = job.company[0..job.company.length/2 - 1] if double?
+    double = job.company[0..(job.company.length/2 - 1)] == job.company[job.company.length/2..-1]
+    job.company = job.company[0..job.company.length/2 - 1] if double
     job
   end
 
