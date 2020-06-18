@@ -3,20 +3,20 @@ class RemoveDuplicatesJob < ApplicationJob
 
   def perform(id)
     @search = Search.find(id)
-    @jobs = @search.jobs
-    @jobs.each do |job|
-      begin
-        @duplicates = Job.all.where(title: job.title).where(company: job.company).where(salary: job.salary).where(search_id: job.search_id)
-        if @duplicates.nil?
-          puts "#{@duplicates.first.title} has no duplicates"
-        else
-          @duplicates[(1..-1)].each do |dup|
-            dup.destroy
-          end
-        end
-      rescue StandardError => e
-        puts e.message
-      end
+    @search.jobs.each do |job|
+      delete_duplicates(job)
+    end
+  end
+
+  private
+
+  def delete_duplicates(job)
+    begin
+      @duplicates = Job.where(title: job.title, company: job.company, salary: job.salary, search_id: job.search_id)
+      puts "#{@duplicates.first.title} has no duplicates" if @duplicates.nil?
+      @duplicates[(1..-1)].each { |dup| dup.destroy } if @duplicates
+    rescue StandardError => e
+      puts e.message
     end
   end
 end

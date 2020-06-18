@@ -13,7 +13,6 @@ class FormattingJob < ApplicationJob
     end
   end
 
-  # TODO: change update into one db call
   private
 
   def remove_space_chars(job)
