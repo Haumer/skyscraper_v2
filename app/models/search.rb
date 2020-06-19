@@ -6,11 +6,11 @@ class Search < ApplicationRecord
   validates :location, presence: true
 
   def top_jobs
-    jobs.select { |job| job.quality >= 3 }
+    jobs.where('quality >= ?', 3)
   end
 
   def low_jobs
-    jobs.select { |job| job.quality <= -2 }
+    jobs.where('quality >= ?', -2)
   end
 
   # private
