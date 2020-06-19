@@ -3,7 +3,7 @@ class UpdateQualityJob < ApplicationJob
 
   def perform(id)
     @search = Search.find(id)
-      @search.jobs.each do |job|
+    @search.jobs.each do |job|
       quality = Quality.new(job, @search)
       quality.check
       job.save

@@ -5,10 +5,10 @@ class FormattingJob < ApplicationJob
   def perform(id)
     @search = Search.find(id)
     @search.jobs.each do |job|
-      job = remove_space_chars(job)
-      job = remove_duplicate_name(job)
-      job = salary_digits(job)
-      job = salary_bounds(job)
+      remove_space_chars(job)
+      remove_duplicate_name(job)
+      salary_digits(job)
+      salary_bounds(job)
       job.save
     end
   end
@@ -19,19 +19,16 @@ class FormattingJob < ApplicationJob
     job.title = job.title.gsub(/\s+/, " ")
     job.location = job.location.gsub(/\s+/, " ")
     job.description = job.description.gsub(/\s+/, " ")
-    job
   end
 
   def remove_duplicate_name(job)
     double = job.company[0..(job.company.length/2 - 1)] == job.company[job.company.length/2..-1]
     job.company = job.company[0..job.company.length/2 - 1] if double
-    job
   end
 
   def salary_digits(job)
     salary_present = job.salary.scan(/(\d{1,3}[,\.]?\d{0,3})/).flatten.length > 1
     job.salary = salary_present ? job.salary.scan(/(\d{1,3}[,\.]?\d{0,3})/).join("-") : "unspecified"
-    job
   end
 
   def salary_bounds(job)
@@ -46,7 +43,6 @@ class FormattingJob < ApplicationJob
         job.upper_salary = salaries[1].to_i
       end
     end
-    job
   end
 
   def update_status_formatted
