@@ -1,15 +1,14 @@
-Website.destroy_all
-Scraper.destroy_all
+if Rails.env.development?
+  Website.destroy_all
+  Scraper.destroy_all
+end
 
 user = User.create!(email: "default@skyscraper.com", password: "123456", admin: true)
 Search.create!(keyword: "ruby", location: "london", user: user)
 
 websites = %w( www.cv-library.co.uk www.jobstoday.co.uk www.indeed.co.uk www.totaljobs.com www.reed.co.uk www.jobsite.co.uk)
 
-websites.each do |website|
-  name = website.split(".")[1]
-  Website.create!(base_url: website, name: name)
-end
+websites.each { |website| Website.create!(base_url: website, name: website.split(".")[1]) }
 
 # CV-LIBRARY
 Scraper.create!(
@@ -20,7 +19,7 @@ Scraper.create!(
   company_class: ".company + dd a",
   salary_class: "dd.salary",
   description_class: ".job__description.noscript-show",
-  website: Website.where(base_url: "www.cv-library.co.uk").first,
+  website: Website.find_by(base_url: "www.cv-library.co.uk"),
   counter_interval: 100,
   counter_start: 0,
   nr_pages: 3,
@@ -36,7 +35,7 @@ Scraper.create!(
   company_class: ".lister__meta-item--recruiter",
   salary_class: ".lister__meta-item--salary",
   description_class: ".lister__description .js-clamp-2",
-  website: Website.where(base_url: "www.jobstoday.co.uk").first,
+  website: Website.find_by(base_url: "www.jobstoday.co.uk"),
   counter_interval: 1,
   counter_start: 0,
   nr_pages: 3,
@@ -53,7 +52,7 @@ Scraper.create!(
   company_class: ".company",
   salary_class: ".no-wrap",
   description_class: ".summary",
-  website: Website.where(base_url: "www.indeed.co.uk").first,
+  website: Website.find_by(base_url: "www.indeed.co.uk"),
   counter_interval: 1,
   counter_start: 0,
   nr_pages: 3,
@@ -69,7 +68,7 @@ Scraper.create!(
   company_class: ".gtmJobListingPostedBy",
   salary_class: ".salary",
   description_class: ".description p",
-  website: Website.where(base_url: "www.reed.co.uk").first,
+  website: Website.find_by(base_url: "www.reed.co.uk"),
   counter_interval: 1,
   counter_start: 1,
   nr_pages: 3,
@@ -85,7 +84,7 @@ Scraper.create!(
   company_class: ".company",
   salary_class: ".salary",
   description_class: ".job-intro",
-  website: Website.where(base_url: "www.jobsite.co.uk").first,
+  website: Website.find_by(base_url: "www.jobsite.co.uk"),
   counter_interval: 1,
   counter_start: 1,
   nr_pages: 3,

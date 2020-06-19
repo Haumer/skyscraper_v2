@@ -6,7 +6,6 @@ namespace :search do
     ScrapeAllJob.perform_now(search.id)
     puts "=> Scraped!"
     puts "Starting Quality check"
-    FormattingJob.perform_now(search.id)
     search.report
   end
 
