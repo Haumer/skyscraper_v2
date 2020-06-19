@@ -5,7 +5,7 @@ namespace :csv do
     user = User.find(args[:id].to_i)
 
     csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
-    filepath    = 'jobs.csv'
+    filepath    = 'csvs/jobs.csv'
 
     CSV.open(filepath, 'wb', csv_options) do |csv|
       csv << user.jobs.first.attributes.keys
@@ -18,7 +18,7 @@ namespace :csv do
   desc "websites"
   task :websites do
     csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
-    filepath    = 'websites.csv'
+    filepath    = 'csvs/websites.csv'
 
     CSV.open(filepath, 'wb', csv_options) do |csv|
       csv << Website.first.attributes.keys
