@@ -18,12 +18,8 @@ class Job < ApplicationRecord
   end
 
   def title_length
-    if quality > 3
-      999
-    elsif quality > 2
-      70
-    else
-      30
-    end
+    return 999 if quality > 3
+    return 70 if quality > 2
+    return 30 if quality > 3
   end
 end

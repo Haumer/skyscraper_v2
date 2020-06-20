@@ -19,15 +19,15 @@ class Search < ApplicationRecord
     ap [
       {
         "total" => jobs.count,
-        "avg" => (jobs.map {|e| e.quality}.sum).to_f / jobs.count
+        "avg" => (jobs.map { |e| e.quality }.sum).to_f / jobs.count
       },
       {
         "top total (+3)" => top_jobs.count,
-        "avg" => (top_jobs.map {|e| e.quality}.sum).to_f / top_jobs.count
+        "avg" => (top_jobs.map { |e| e.quality }.sum).to_f / top_jobs.count
       },
       {
         "low total (-2)" => low_jobs.count,
-        "avg" => (low_jobs.map {|e| e.quality}.sum).to_f / low_jobs.count
+        "avg" => (low_jobs.map { |e| e.quality }.sum).to_f / low_jobs.count
       }
     ]
   end
