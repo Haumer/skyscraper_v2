@@ -1,10 +1,10 @@
+# TODO: dont run in production
 if Rails.env.development?
   Website.destroy_all
   Scraper.destroy_all
+  user = User.create!(email: "default@skyscraper.com", password: "123456", admin: true)
+  Search.create!(keyword: "ruby", location: "london", user: user)
 end
-
-user = User.create!(email: "default@skyscraper.com", password: "123456", admin: true)
-Search.create!(keyword: "ruby", location: "london", user: user)
 
 websites = %w( www.cv-library.co.uk www.jobstoday.co.uk www.indeed.co.uk www.totaljobs.com www.reed.co.uk www.jobsite.co.uk)
 
@@ -88,5 +88,7 @@ Scraper.create!(
   counter_interval: 1,
   counter_start: 1,
   nr_pages: 3,
-  scrape_url: "https://www.jobsite.co.uk/jobs/KEYWORD/in-LOCATION?radius=10&page=COUNTER"
+  scrape_url: "https://www.jobsite.co.uk/jobs/KEYWORD/in-LOCATION?radius=10"
+  # FIXME: (haumer) currently &page times out
+  # scrape_url: "https://www.jobsite.co.uk/jobs/KEYWORD/in-LOCATION?radius=10&page=COUNTER"
 )

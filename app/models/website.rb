@@ -11,6 +11,6 @@ class Website < ApplicationRecord
   end
 
   def self.list
-    self.all.each_with_index { |website, i| puts "#{i+1}. - #{website.name}" }
+    self.all.each_with_index { |website, i| puts "id #{i+1} - #{website.name}" }
   end
 end
