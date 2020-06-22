@@ -1,7 +1,7 @@
 <div class="job-card-content">
   <%= link_to "https://#{job.job_website + job.link}", target: "_blank" do %>
     <div class="job-title">
-      <p class="name"><b><%= job.title.truncate(job.title_length) %></b></p>
+      <p class="name"><b><%= job.title.truncate(job.title.length) %></b></p>
     </div>
     <div class="job-info">
       <% unless job.salary == "unspecified" %>

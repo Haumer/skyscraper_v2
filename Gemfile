@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.6.5'
 
+gem 'view_component'
 gem 'csv'
 gem 'pundit'
 gem 'awesome_print'
