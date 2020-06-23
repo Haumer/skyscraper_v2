@@ -60,6 +60,8 @@ class Scraper < ApplicationRecord
     Scraper.most_recent
   end
 
+  private
+
   def build_url(keyword, location)
     url = scrape_url.gsub("KEYWORD", keyword).gsub("LOCATION", location)
     (counter_start...nr_pages).map do |count|
