@@ -17,32 +17,13 @@ class Scraper < ApplicationRecord
   def crawl(search)
     build_url(search.keyword, search.location).each_with_index do |url, i|
       begin
-        Timeout::timeout(15) do
+        Timeout::timeout(22225) do
           page = Nokogiri::HTML(open(url))
-          page.search(self.card_class).each do |result_card|
-            if result_card.search(self.title_class).text.strip.downcase.include?(search.keyword) || result_card.search(self.description_class).text.strip.downcase.include?(search.keyword)
-              title = result_card.search(self.title_class).text.strip
-              link = result_card.search(self.link_class).first['href']
-              location = result_card.search(self.location_class).text.strip
-              company = result_card.search(self.company_class).text.strip
-              description = result_card.search(self.description_class).text.strip
-              if result_card.search(self.salary_class).text.strip.nil? || result_card.search(self.salary_class).text.strip.empty?
-                salary = "unspecified"
-              else
-                salary = result_card.search(self.salary_class).text.strip
-              end
-              website = self.website.base_url
-              Job.create!(
-                title: title,
-                location: location,
-                job_website: website,
-                description: description,
-                website: self.website,
-                salary: salary,
-                company: company,
-                link: link,
-                search: search
-              )
+          page.search(card_class).each do |result_card|
+            if result_card.search(title_class).text.strip.downcase.include?(search.keyword) || result_card.search(description_class).text.strip.downcase.include?(search.keyword)
+              data = { website: website, job_website: website.base_url, search: search }
+              data = data.merge(extract_data(result_card))
+              Job.create!(data)
             end
           end
         rescue Timeout::Error => e
@@ -61,6 +42,21 @@ class Scraper < ApplicationRecord
   end
 
   private
+
+  def extract_data(card)
+    data = {}
+    data[:title] = card.search(title_class).text.strip
+    data[:link] = card.search(link_class).first['href']
+    data[:location] = card.search(location_class).text.strip
+    data[:company] = card.search(company_class).text.strip
+    data[:description] = card.search(description_class).text.strip
+    if card.search(salary_class).text.strip.nil? || card.search(salary_class).text.strip.empty?
+      data[:salary] = "unspecified"
+    else
+      data[:salary] = card.search(salary_class).text.strip
+    end
+    return data
+  end
 
   def build_url(keyword, location)
     url = scrape_url.gsub("KEYWORD", keyword).gsub("LOCATION", location)
