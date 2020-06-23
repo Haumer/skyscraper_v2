@@ -17,24 +17,23 @@ class Scraper < ApplicationRecord
   def crawl(search)
     build_url(search.keyword, search.location).each_with_index do |url, i|
       begin
-        Timeout::timeout(22225) do
+        Timeout::timeout(15) do
           page = Nokogiri::HTML(open(url))
           page.search(card_class).each do |result_card|
-            if result_card.search(title_class).text.strip.downcase.include?(search.keyword) || result_card.search(description_class).text.strip.downcase.include?(search.keyword)
-              data = { website: website, job_website: website.base_url, search: search }
-              data = data.merge(extract_data(result_card))
+            if title_or_description_contains_keyword?(result_card, search.keyword)
+              data = {
+                website: website,
+                job_website: website.base_url,
+                search: search
+              }.merge(extract_data(result_card))
               Job.create!(data)
             end
           end
         rescue Timeout::Error => e
-          puts e.message
-          puts url
-          ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
+          set_error(e, url, search)
         end
       rescue StandardError => e
-        puts e.message
-        puts url
-        ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
+        set_error(e, url, search)
       end
       sleep(0.5)
     end
@@ -42,6 +41,16 @@ class Scraper < ApplicationRecord
   end
 
   private
+
+  def title_or_description_contains_keyword?(card, keyword)
+    result_card.search(title_class).text.strip.downcase.include?(search.keyword) || result_card.search(description_class).text.strip.downcase.include?(search.keyword)
+  end
+
+  def set_error(e, url, search)
+    puts e.message
+    puts url
+    ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
+  end
 
   def extract_data(card)
     data = {}
