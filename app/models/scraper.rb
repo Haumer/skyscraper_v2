@@ -42,16 +42,6 @@ class Scraper < ApplicationRecord
 
   private
 
-  def title_or_description_contains_keyword?(card, keyword)
-    result_card.search(title_class).text.strip.downcase.include?(search.keyword) || result_card.search(description_class).text.strip.downcase.include?(search.keyword)
-  end
-
-  def set_error(e, url, search)
-    puts e.message
-    puts url
-    ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
-  end
-
   def extract_data(card)
     data = {}
     data[:title] = card.search(title_class).text.strip
@@ -59,11 +49,7 @@ class Scraper < ApplicationRecord
     data[:location] = card.search(location_class).text.strip
     data[:company] = card.search(company_class).text.strip
     data[:description] = card.search(description_class).text.strip
-    if card.search(salary_class).text.strip.nil? || card.search(salary_class).text.strip.empty?
-      data[:salary] = "unspecified"
-    else
-      data[:salary] = card.search(salary_class).text.strip
-    end
+    data[:salary] = set_salary(card)
     return data
   end
 
@@ -86,5 +72,23 @@ class Scraper < ApplicationRecord
       end
     end
     ap scrapers
+  end
+
+  def set_salary(card)
+    salary_is_nil_or_empty?(card) ? "unspecified" : card.search(salary_class).text.strip
+  end
+
+  def set_error(e, url, search)
+    puts e.message
+    puts url
+    ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
+  end
+
+  def title_or_description_contains_keyword?(card, keyword)
+    card.search(title_class).text.strip.downcase.include?(keyword) || card.search(description_class).text.strip.downcase.include?(keyword)
+  end
+
+  def salary_is_nil_or_empty?(card)
+    card.search(salary_class).text.strip.nil? || card.search(salary_class).text.strip.empty?
   end
 end
