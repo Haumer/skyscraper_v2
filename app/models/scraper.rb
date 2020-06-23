@@ -43,14 +43,14 @@ class Scraper < ApplicationRecord
   private
 
   def extract_data(card)
-    data = {}
-    data[:title] = card.search(title_class).text.strip
-    data[:link] = card.search(link_class).first['href']
-    data[:location] = card.search(location_class).text.strip
-    data[:company] = card.search(company_class).text.strip
-    data[:description] = card.search(description_class).text.strip
-    data[:salary] = set_salary(card)
-    return data
+    {
+      title: card.search(title_class).text.strip,
+      link: card.search(link_class).first['href'],
+      location: card.search(location_class).text.strip,
+      company: card.search(company_class).text.strip,
+      description: card.search(description_class).text.strip,
+      salary: set_salary(card)
+    }
   end
 
   def build_url(keyword, location)
@@ -60,6 +60,7 @@ class Scraper < ApplicationRecord
     end
   end
 
+  # FIXME: (haumer) maybe refactor this?
   def self.most_recent
     scrapers = {}
     Scraper.all.each do |scraper|
