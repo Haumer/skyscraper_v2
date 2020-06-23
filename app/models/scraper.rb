@@ -61,9 +61,9 @@ class Scraper < ApplicationRecord
   end
 
   def build_url(keyword, location)
-    url = self.scrape_url.gsub("KEYWORD", keyword).gsub("LOCATION", location)
-    (self.counter_start...self.nr_pages).map do |count|
-      url.gsub("COUNTER", "#{self.counter_interval * count}")
+    url = scrape_url.gsub("KEYWORD", keyword).gsub("LOCATION", location)
+    (counter_start...nr_pages).map do |count|
+      url.gsub("COUNTER", "#{counter_interval * count}")
     end
   end
 
