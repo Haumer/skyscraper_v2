@@ -19,7 +19,7 @@ The seed has a default User with email: default@skyscraper.com and password: 123
 ## Make sure to have redis and sidekiq running:
 ```sidekiq```
 
-## Default available Tasks:
+## Default available Rake Tasks:
 
 search:general[KEYWORD]
 
