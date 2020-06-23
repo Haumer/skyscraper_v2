@@ -29,14 +29,14 @@ class UpdateQualityJob < ApplicationJob
   end
 
   def title_quality(job)
-    job.quality += 1 if job.title.downcase.include?("mid") || job.title.downcase.include?("junior") ||  job.title.downcase.include?("senior")
+    job.quality += 1 if job.title.downcase.include?("mid") || job.title.downcase.include?("junior") || job.title.downcase.include?("senior")
     job.quality -= 1 if job.title.length < 35
     job.quality += 1 if job.title.downcase.include?(@search.keyword.downcase)
-    job.quality -= 2 if job.title.downcase.include?(@search.keyword.downcase) &&  job.company.downcase.include?(@search.keyword.downcase)
+    job.quality -= 2 if job.title.downcase.include?(@search.keyword.downcase) && job.company.downcase.include?(@search.keyword.downcase)
   end
 
   def description_quality(job)
     job.quality += 1 if job.description.downcase.include?(@search.keyword.downcase)
-    job.quality -= 10 unless  job.description.downcase.include?(@search.keyword.downcase)
+    job.quality -= 10 unless job.description.downcase.include?(@search.keyword.downcase)
   end
 end

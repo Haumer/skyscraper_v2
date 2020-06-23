@@ -5,6 +5,8 @@ class ScrapeAllJob < ApplicationJob
   def perform(id)
     @search = Search.find(id)
     Scraper.all.each do |scraper|
+      return if scraper.website.active?
+
       scraper.crawl(@search)
     end
   end
