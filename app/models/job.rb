@@ -1,6 +1,7 @@
 class Job < ApplicationRecord
-  belongs_to :search
   belongs_to :website
+  has_many :search_jobs, dependent: :destroy
+  has_many :searches, through: :search_jobs
 
   validates :title,  presence: true
   validates :salary, presence: true

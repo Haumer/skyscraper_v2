@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200623233040) do
+ActiveRecord::Schema.define(version: 20200624224639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,14 +23,12 @@ ActiveRecord::Schema.define(version: 20200623233040) do
     t.string "job_website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "search_id"
     t.string "salary"
     t.bigint "website_id"
     t.text "description"
     t.integer "quality", default: -1
     t.integer "upper_salary"
     t.integer "lower_salary"
-    t.index ["search_id"], name: "index_jobs_on_search_id"
     t.index ["website_id"], name: "index_jobs_on_website_id"
   end
 
@@ -61,6 +59,15 @@ ActiveRecord::Schema.define(version: 20200623233040) do
     t.string "description_class"
     t.integer "counter_start"
     t.index ["website_id"], name: "index_scrapers_on_website_id"
+  end
+
+  create_table "search_jobs", force: :cascade do |t|
+    t.bigint "search_id"
+    t.bigint "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_search_jobs_on_job_id"
+    t.index ["search_id"], name: "index_search_jobs_on_search_id"
   end
 
   create_table "searches", force: :cascade do |t|
@@ -99,9 +106,10 @@ ActiveRecord::Schema.define(version: 20200623233040) do
     t.boolean "active", default: false
   end
 
-  add_foreign_key "jobs", "searches"
   add_foreign_key "jobs", "websites"
   add_foreign_key "scraper_errors", "scrapers"
   add_foreign_key "scrapers", "websites"
+  add_foreign_key "search_jobs", "jobs"
+  add_foreign_key "search_jobs", "searches"
   add_foreign_key "searches", "users"
 end
