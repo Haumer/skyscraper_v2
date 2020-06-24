@@ -24,9 +24,8 @@ class Scraper < ApplicationRecord
               data = {
                 website: website,
                 job_website: website.base_url,
-                search: search
               }.merge(extract_data(result_card))
-              Job.create!(data)
+              create_or_find_job(data, search)
             end
           end
         rescue Timeout::Error => e
@@ -41,6 +40,13 @@ class Scraper < ApplicationRecord
   end
 
   private
+
+  def create_or_find_job(data, search)
+    # FIXME: (haumer) optimise with find_or_create_by
+    job = Job.find_by(link: data[:link])
+    job = job ? job : Job.create!(data)
+    SearchJob.create!(job: job, search: search)
+  end
 
   def extract_data(card)
     {

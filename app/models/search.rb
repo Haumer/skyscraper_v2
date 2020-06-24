@@ -1,7 +1,7 @@
 class Search < ApplicationRecord
-  has_many :websites, -> { distinct }, through: :jobs
   has_many :search_jobs, dependent: :destroy
   has_many :jobs, through: :search_jobs
+  has_many :websites, -> { distinct }, through: :jobs
   belongs_to :user
   validates :keyword, presence: true
   validates :location, presence: true
