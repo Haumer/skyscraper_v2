@@ -16,10 +16,12 @@ class Scraper < ApplicationRecord
 
   def crawl(search)
     build_url(search.keyword, search.location).each_with_index do |url, i|
+      p url
       begin
-        Timeout::timeout(15) do
+        Timeout::timeout(1995) do
           page = Nokogiri::HTML(open(url))
           page.search(card_class).each do |result_card|
+            p result_card.text
             if title_or_description_contains_keyword?(result_card, search.keyword)
               data = {
                 website: website,
@@ -66,8 +68,8 @@ class Scraper < ApplicationRecord
     end
   end
 
-  # FIXME: (haumer) maybe refactor this?
   def self.most_recent
+    # FIXME: (haumer) maybe refactor this?
     scrapers = {}
     Scraper.all.each do |scraper|
       if scraper.website.jobs.empty?
