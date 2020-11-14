@@ -16,12 +16,10 @@ class Scraper < ApplicationRecord
 
   def crawl(search)
     build_url(search.keyword, search.location).each_with_index do |url, i|
-      p url
       begin
         Timeout::timeout(1995) do
           page = Nokogiri::HTML(open(url))
           page.search(card_class).each do |result_card|
-            p result_card.text
             if title_or_description_contains_keyword?(result_card, search.keyword)
               data = {
                 website: website,
@@ -88,8 +86,6 @@ class Scraper < ApplicationRecord
   end
 
   def set_error(e, url, search)
-    puts e.message
-    puts url
     ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
   end
 

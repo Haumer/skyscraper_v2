@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
   def index
-    @jobs = Job.all
+    @jobs = policy_scope(Job)
   end
 end

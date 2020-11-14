@@ -38,7 +38,7 @@ class Search < ApplicationRecord
     total = selected.map do |job|
       (job.upper_salary + job.lower_salary) / 2 unless job.upper_salary > 200000 || job.lower_salary > 200000
     end.reject(&:blank?)
-    { avg: total.sum / total.count, count: total.count }
+    total.present? ? { avg: total.sum / total.count, count: total.count } : {}
   end
 
   def highest_salary
