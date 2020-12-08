@@ -1,3 +1,10 @@
+# Skyscraper Version 2
+
+For version 1 please see: http://theskyscraper.herokuapp.com/ (~ 100k Jobs scraped)
+
+### Version 2 
+**Command Line Only** (see setup below)
+
 # Setup:
 
 ## Clone repo
@@ -21,29 +28,40 @@ The seed has a default User with email: default@skyscraper.com and password: 123
 
 ## Default available Rake Tasks:
 
-search:general[KEYWORD]
+**search for a job**
+
+:point_right: search:general[KEYWORD]
 
 example:
-1. noglob rake search:general['ruby']
-2. rake search:general\\['ruby'\\]
+   ```
+   noglob rake search:general['ruby']
+   # OR
+   rake search:general\['ruby'\]
+   ```
 
 => lists all jobs from all websites for the KEYWORD 'ruby' that are being
    scraped
 
+**check which websites yielded results**
 
-search:latest
+:point_right: search:latest
 
 example:
-1. rake search:latest
+   ```
+   rake search:latest
+   ```
 
 => lists all websites and confirms that if the latest search successfully
    scraped jobs as intended
 
+**check for errors**
 
-search:errors
+:point_right: search:errors
 
 example:
-1. rake search:errors
+   ```
+   rake search:errors
+   ```
 
 => lists the 50 most recent errors
 
@@ -51,10 +69,13 @@ example:
 search:errors['WEBSITE', NUMBER]
 
 example:
-1. noglob rake search:errors['cv-library']
-2. rake search:errors\\['cv-library'\\]
-3. rake search:errors\\['cv-library', 10\\]
-
+   ```
+   noglob rake search:errors['cv-library']
+   # OR
+   rake search:errors\['cv-library'\]
+   # OR
+   rake search:errors\['cv-library', 10\]
+   ```
 
 => lists the 'NUMBER' most recent errors for cv-library, NUMBER defaults to 50
 
