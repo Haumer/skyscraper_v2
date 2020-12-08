@@ -1,6 +1,10 @@
 # Skyscraper Version 2
 
-For version 1 please see: http://theskyscraper.herokuapp.com/ (~ 100k Jobs scraped)
+For version 1 please see: 
+
+Demo Site: http://theskyscraper.herokuapp.com/ (~ 100k Jobs scraped)
+
+Repo https://github.com/Haumer/skyscraper
 
 ### Version 2 
 **Command Line Only** (see setup below)
