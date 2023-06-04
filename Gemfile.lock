@@ -154,7 +154,7 @@ GEM
     pundit (2.1.0)
       activesupport (>= 3.0.0)
     racc (1.6.2)
-    rack (2.0.9.1)
+    rack (2.0.9.3)
     rack-protection (2.0.8.1)
       rack
     rack-proxy (0.6.5)
