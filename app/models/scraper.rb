@@ -17,16 +17,15 @@ class Scraper < ApplicationRecord
   def crawl(search)
     build_url(search.keyword, search.location).each_with_index do |url, i|
       begin
-        Timeout::timeout(15) do
+        Timeout::timeout(1995) do
           page = Nokogiri::HTML(open(url))
           page.search(card_class).each do |result_card|
             if title_or_description_contains_keyword?(result_card, search.keyword)
               data = {
                 website: website,
                 job_website: website.base_url,
-                search: search
               }.merge(extract_data(result_card))
-              Job.create!(data)
+              create_or_find_job(data, search)
             end
           end
         rescue Timeout::Error => e
@@ -41,6 +40,13 @@ class Scraper < ApplicationRecord
   end
 
   private
+
+  def create_or_find_job(data, search)
+    # FIXME: (haumer) optimise with find_or_create_by
+    job = Job.find_by(link: data[:link])
+    job = job ? job : Job.create!(data)
+    SearchJob.create!(job: job, search: search)
+  end
 
   def extract_data(card)
     {
@@ -60,8 +66,8 @@ class Scraper < ApplicationRecord
     end
   end
 
-  # FIXME: (haumer) maybe refactor this?
   def self.most_recent
+    # FIXME: (haumer) maybe refactor this?
     scrapers = {}
     Scraper.all.each do |scraper|
       if scraper.website.jobs.empty?
@@ -80,8 +86,6 @@ class Scraper < ApplicationRecord
   end
 
   def set_error(e, url, search)
-    puts e.message
-    puts url
     ScraperError.create(message: e.message, url: url, keyword: search.keyword, location: search.location, scraper: self)
   end
 

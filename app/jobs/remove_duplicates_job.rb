@@ -12,9 +12,9 @@ class RemoveDuplicatesJob < ApplicationJob
 
   def delete_duplicates(job)
     begin
-      @duplicates = Job.where(title: job.title, company: job.company, salary: job.salary, search_id: job.search_id)
+      @duplicates = Job.where(title: job.title, company: job.company, salary: job.salary)
       puts "#{@duplicates.first.title} has no duplicates" if @duplicates.nil?
-      @duplicates[(1..-1)].each { |dup| dup.destroy } if @duplicates
+      @duplicates[(1..-1)]&.each { |dup| dup.destroy } if @duplicates
     rescue StandardError => e
       puts e.message
     end
