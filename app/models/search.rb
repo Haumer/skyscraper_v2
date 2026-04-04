@@ -1,5 +1,6 @@
 class Search < ApplicationRecord
-  has_many :jobs, dependent: :destroy
+  has_many :search_jobs, dependent: :destroy
+  has_many :jobs, through: :search_jobs
   has_many :websites, -> { distinct }, through: :jobs
   belongs_to :user
   validates :keyword, presence: true
@@ -37,7 +38,7 @@ class Search < ApplicationRecord
     total = selected.map do |job|
       (job.upper_salary + job.lower_salary) / 2 unless job.upper_salary > 200000 || job.lower_salary > 200000
     end.reject(&:blank?)
-    { avg: total.sum / total.count, count: total.count }
+    total.present? ? { avg: total.sum / total.count, count: total.count } : {}
   end
 
   def highest_salary

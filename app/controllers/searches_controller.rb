@@ -25,7 +25,7 @@ class SearchesController < ApplicationController
   end
 
   def show
-    @jobs = @search.jobs - @search.low_jobs
+    @jobs = @search.jobs
   end
 
   private
